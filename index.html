@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="76fjNAU2TLk3UMSciqQ4jid6hVaqgZui1t575HBiG2I" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Metadatos para SEO -->
+    <title>Control de Gastos - Aplicación para gestionar tus finanzas personales</title>
+    <meta name="description" content="Control de Gastos es una aplicación web gratuita para gestionar tus finanzas personales. Registra gastos fijos y diarios, visualiza estadísticas y mantén el control de tu presupuesto.">
+    <meta name="keywords" content="control de gastos, finanzas personales, presupuesto, gestión financiera, gastos fijos, gastos diarios, ahorro, economía personal">
+    <meta name="author" content="Control de Gastos">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Metadatos para redes sociales (Open Graph) -->
+    <meta property="og:title" content="Control de Gastos - Aplicación para gestionar tus finanzas personales">
+    <meta property="og:description" content="Control de Gastos es una aplicación web gratuita para gestionar tus finanzas personales. Registra gastos fijos y diarios, visualiza estadísticas y mantén el control de tu presupuesto.">
+    <meta property="og:image" content="https://tudominio.com/images/control-gastos-preview.jpg">
+    <meta property="og:url" content="https://tudominio.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Metadatos para Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Control de Gastos - Aplicación para gestionar tus finanzas personales">
+    <meta name="twitter:description" content="Control de Gastos es una aplicación web gratuita para gestionar tus finanzas personales. Registra gastos fijos y diarios, visualiza estadísticas y mantén el control de tu presupuesto.">
+    <meta name="twitter:image" content="https://tudominio.com/images/control-gastos-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tudominio.com">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Schema.org markup para Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Control de Gastos",
+      "description": "Aplicación web para gestionar finanzas personales, registrar gastos y visualizar estadísticas",
+      "url": "https://tudominio.com",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Control de Gastos</h1>
+            <button id="btn-cambio-tema" class="btn-tema" title="Cambiar tema">
+                <span class="icono-tema">🌙</span>
+            </button>
+        </header>
+        
+        <main>
+            <!-- Formulario de Inicio de Sesión -->
+            <section class="seccion-login">
+                <h2>Iniciar Sesión</h2>
+                <form id="form-login">
+                    <div class="input-group">
+                        <label for="email-login">Correo electrónico:</label>
+                        <input type="email" id="email-login" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password-login">Contraseña:</label>
+                        <input type="password" id="password-login" placeholder="Tu contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-primario">Iniciar Sesión</button>
+                </form>
+                
+                <div class="separador">
+                    <span>o</span>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button id="btn-google" class="btn-social">
+                        <img src="https://www.google.com/favicon.ico" alt="Google" class="icono-social">
+                        Continuar con Google
+                    </button>
+                    <button id="btn-telefono" class="btn-social">
+                        <img src="https://cdn-icons-png.flaticon.com/512/455/455705.png" alt="Teléfono" class="icono-social">
+                        Continuar con Teléfono
+                    </button>
+                </div>
+                
+                <p>¿No tienes una cuenta? <a href="#" id="mostrar-registro">Regístrate aquí</a></p>
+            </section>
+
+            <!-- Formulario de Registro (inicialmente oculto) -->
+            <section class="seccion-registro" style="display: none;">
+                <h2>Registro de Usuario</h2>
+                <form id="form-registro">
+                    <div class="input-group">
+                        <label for="nombre-registro">Nombre completo:</label>
+                        <input type="text" id="nombre-registro" placeholder="Tu nombre completo" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email-registro">Correo electrónico:</label>
+                        <input type="email" id="email-registro" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password-registro">Contraseña:</label>
+                        <input type="password" id="password-registro" placeholder="Tu contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-primario">Registrarse</button>
+                </form>
+                
+                <div class="separador">
+                    <span>o</span>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button id="btn-google-registro" class="btn-social">
+                        <img src="https://www.google.com/favicon.ico" alt="Google" class="icono-social">
+                        Continuar con Google
+                    </button>
+                    <button id="btn-telefono-registro" class="btn-social">
+                        <img src="https://cdn-icons-png.flaticon.com/512/455/455705.png" alt="Teléfono" class="icono-social">
+                        Continuar con Teléfono
+                    </button>
+                </div>
+                
+                <p>¿Ya tienes una cuenta? <a href="#" id="mostrar-login">Inicia sesión aquí</a></p>
+            </section>
+            
+            <!-- Formulario de verificación por teléfono (inicialmente oculto) -->
+            <section class="seccion-telefono" style="display: none;">
+                <h2>Verificación por Teléfono</h2>
+                <form id="form-telefono">
+                    <div class="input-group">
+                        <label for="telefono">Número de teléfono:</label>
+                        <input type="tel" id="telefono" placeholder="+1 (809) 555-0123" required>
+                    </div>
+                    <button type="submit" class="btn-primario">Enviar código</button>
+                </form>
+                <button id="volver-login" class="btn-secundario">Volver al inicio de sesión</button>
+            </section>
+            
+            <!-- Formulario de verificación de código (inicialmente oculto) -->
+            <section class="seccion-verificacion" style="display: none;">
+                <h2>Verificar Código</h2>
+                <form id="form-verificacion">
+                    <div class="input-group">
+                        <label for="codigo">Código de verificación:</label>
+                        <input type="text" id="codigo" placeholder="Ingresa el código recibido" required>
+                    </div>
+                    <button type="submit" class="btn-primario">Verificar</button>
+                </form>
+                <button id="volver-telefono" class="btn-secundario">Volver</button>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Control de Gastos. Todos los derechos reservados.</p>
+            <nav class="footer-nav">
+                <a href="privacy.html">Política de Privacidad</a> | 
+                <a href="terms.html">Términos de Uso</a> | 
+                <a href="contact.html">Contacto</a>
+            </nav>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="theme.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="configTitle">Configuración</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1 data-translate="appTitle">Control de Gastos</h1>
+            <div class="menu">
+                <a href="app.html" class="btn-volver" data-translate="backToHome">Volver al Inicio</a>
+                <button id="btnCerrarSesion" data-translate="logoutBtn">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="seccion-configuracion">
+            <h2 data-translate="configTitle">Configuración</h2>
+            
+            <div class="config-group">
+                <h3 data-translate="languageTitle">Idioma / Language</h3>
+                <div class="language-buttons">
+                    <button onclick="changeLanguage('es')" class="lang-btn">Español</button>
+                    <button onclick="changeLanguage('en')" class="lang-btn">English</button>
+                </div>
+            </div>
+
+            <div class="config-item">
+                <h3>Moneda</h3>
+                <select id="moneda-select">
+                    <option value="USD">Dólar estadounidense ($)</option>
+                    <option value="EUR">Euro (€)</option>
+                    <option value="MXN">Peso mexicano ($)</option>
+                    <option value="COP">Peso colombiano ($)</option>
+                    <option value="ARS">Peso argentino ($)</option>
+                    <option value="CLP">Peso chileno ($)</option>
+                    <option value="PEN">Sol peruano (S/)</option>
+                    <option value="BRL">Real brasileño (R$)</option>
+                    <option value="GBP">Libra esterlina (£)</option>
+                    <option value="JPY">Yen japonés (¥)</option>
+                    <option value="DOP">Peso dominicano (RD$)</option>
+                </select>
+            </div>
+
+            <div class="config-item">
+                <h3>Formato de fecha</h3>
+                <select id="formato-fecha-select">
+                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                </select>
+            </div>
+
+            <div class="config-item">
+                <h3>Tema</h3>
+                <select id="tema-select">
+                    <option value="claro">Claro</option>
+                    <option value="oscuro">Oscuro</option>
+                    <option value="azul">Azul</option>
+                </select>
+            </div>
+
+            <div class="config-actions">
+                <button id="guardar-config" class="btn-principal">Guardar Cambios</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="translations.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        // Cargar el idioma guardado al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLanguage = localStorage.getItem('language') || 'es';
+            changeLanguage(savedLanguage);
+            
+            // Cargar el tema guardado
+            const temaGuardado = localStorage.getItem('tema') || 'claro';
+            const temaSelect = document.getElementById('tema-select');
+            if (temaSelect) {
+                temaSelect.value = temaGuardado;
+                
+                // Añadir evento para cambiar el tema al seleccionar una opción
+                temaSelect.addEventListener('change', () => {
+                    const nuevoTema = temaSelect.value;
+                    aplicarTema(nuevoTema);
+                    localStorage.setItem('tema', nuevoTema);
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
