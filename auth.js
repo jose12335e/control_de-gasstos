@@ -75,6 +75,7 @@ function registrarUsuario(nombre, email, password) {
                                 // Guardar como usuario actual en localStorage para compatibilidad
                                 localStorage.setItem('usuarioActual', JSON.stringify(nuevoUsuario));
                                 mostrarExito('Usuario registrado correctamente');
+                                window.location.href = 'app.html';
                                 resolve(true);
                             });
                     });
@@ -137,7 +138,8 @@ function registrarUsuario(nombre, email, password) {
 
             // Guardar como usuario actual
             localStorage.setItem('usuarioActual', JSON.stringify(nuevoUsuario));
-
+            mostrarExito('Usuario registrado correctamente');
+            window.location.href = 'app.html';
             return true;
         } catch (error) {
             console.error('Error al registrar usuario:', error);
@@ -315,7 +317,7 @@ function guardarUsuarioActual(usuario) {
 // Función para verificar la autenticación
 function verificarAutenticacion() {
     // Verificar si Firebase Auth está disponible
-    if (window.auth) {
+    if (window.auth && window.isFirebaseAvailable()) {
         window.auth.onAuthStateChanged((user) => {
             if (user) {
                 // Usuario autenticado
@@ -333,13 +335,15 @@ function verificarAutenticacion() {
         });
     } else {
         // Fallback al sistema actual si Firebase no está disponible
-        const usuarioActual = obtenerUsuarioActual();
-        if (usuarioActual && esPaginaLogin) {
-            // Si hay un usuario autenticado y estamos en la página de login, redirigir a la aplicación
-            window.location.href = 'app.html';
-        } else if (!usuarioActual && esPaginaApp) {
-            // Si no hay un usuario autenticado y estamos en la aplicación, redirigir al login
-            window.location.href = 'index.html';
+        const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual'));
+        if (usuarioActual) {
+            if (esPaginaLogin) {
+                window.location.href = 'app.html';
+            }
+        } else {
+            if (esPaginaApp) {
+                window.location.href = 'index.html';
+            }
         }
     }
 }

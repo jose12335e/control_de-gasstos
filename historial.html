@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Gastos - Control de Gastos</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Control de Gastos</h1>
+            <div class="header-actions">
+                <button id="btn-cambio-tema" class="btn-tema" title="Cambiar tema">
+                    <span class="icono-tema">🌙</span>
+                </button>
+                <button id="btn-cerrar-sesion" class="btn-cerrar-sesion" title="Cerrar sesión">
+                    <span class="icono-cerrar">🚪</span>
+                </button>
+            </div>
+        </header>
+        
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="app.html" class="sidebar-link">
+                    <span class="icono-inicio">🏠</span>
+                    <span class="texto-link">Inicio</span>
+                </a>
+                <a href="config.html" class="sidebar-link">
+                    <span class="icono-config">⚙️</span>
+                    <span class="texto-link">Configuración</span>
+                </a>
+                <a href="historial.html" class="sidebar-link active">
+                    <span class="icono-historial">📊</span>
+                    <span class="texto-link">Historial de Gastos</span>
+                </a>
+            </nav>
+        </div>
+        
+        <main>
+            <section class="seccion-historial">
+                <h2>Historial de Gastos</h2>
+                
+                <!-- Filtros -->
+                <div class="filtros-historial">
+                    <div class="filtro-grupo">
+                        <label for="filtro-tipo">Tipo de Gasto:</label>
+                        <select id="filtro-tipo">
+                            <option value="todos">Todos los gastos</option>
+                            <option value="fijos">Gastos fijos</option>
+                            <option value="diarios">Gastos diarios</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filtro-grupo">
+                        <label for="filtro-fecha-inicio">Fecha Inicio:</label>
+                        <input type="date" id="filtro-fecha-inicio">
+                    </div>
+                    
+                    <div class="filtro-grupo">
+                        <label for="filtro-fecha-fin">Fecha Fin:</label>
+                        <input type="date" id="filtro-fecha-fin">
+                    </div>
+                    
+                    <div class="filtro-grupo">
+                        <label for="filtro-categoria">Categoría:</label>
+                        <select id="filtro-categoria">
+                            <option value="">Todas las categorías</option>
+                        </select>
+                    </div>
+                    
+                    <button id="btn-aplicar-filtros" class="btn-primario">Aplicar Filtros</button>
+                </div>
+                
+                <!-- Tabla de Historial -->
+                <div class="tabla-historial">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Categoría</th>
+                                <th>Subcategoría</th>
+                                <th>Monto</th>
+                                <th>Comentario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historial-body">
+                            <!-- Los gastos se cargarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Paginación -->
+                <div class="paginacion">
+                    <button id="btn-anterior" class="btn-secundario">Anterior</button>
+                    <span id="pagina-actual">Página 1</span>
+                    <button id="btn-siguiente" class="btn-secundario">Siguiente</button>
+                </div>
+                
+                <!-- Exportar -->
+                <div class="exportar-historial">
+                    <button id="btn-exportar-csv" class="btn-secundario">Exportar a CSV</button>
+                    <button id="btn-exportar-pdf" class="btn-secundario">Exportar a PDF</button>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Control de Gastos. Todos los derechos reservados.</p>
+            <nav class="footer-nav">
+                <a href="privacy.html">Política de Privacidad</a> | 
+                <a href="terms.html">Términos de Uso</a> | 
+                <a href="contact.html">Contacto</a>
+            </nav>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
