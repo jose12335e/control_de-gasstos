@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metas de Ahorro - Control de Gastos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Control de Gastos</h1>
+            <div class="header-actions">
+                <button id="btn-cambio-tema" class="btn-tema" title="Cambiar tema">
+                    <span class="icono-tema">🌙</span>
+                </button>
+                <button id="btn-cerrar-sesion" class="btn-cerrar-sesion" title="Cerrar sesión">
+                    <span class="icono-cerrar">🚪</span>
+                </button>
+            </div>
+        </header>
+        
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="app.html" class="sidebar-link">
+                    <span class="icono-inicio">🏠</span>
+                    <span class="texto-link">Inicio</span>
+                </a>
+                <a href="config.html" class="sidebar-link">
+                    <span class="icono-config">⚙️</span>
+                    <span class="texto-link">Configuración</span>
+                </a>
+                <a href="metas.html" class="sidebar-link active">
+                    <span class="icono-metas">🎯</span>
+                    <span class="texto-link">Metas de Ahorro</span>
+                </a>
+                <a href="historial.html" class="sidebar-link">
+                    <span class="icono-historial">📊</span>
+                    <span class="texto-link">Historial de Gastos</span>
+                </a>
+            </nav>
+        </div>
+        
+        <main>
+            <section class="seccion-metas">
+                <h2>Metas de Ahorro</h2>
+                
+                <!-- Formulario para crear nueva meta -->
+                <div class="crear-meta">
+                    <h3>Nueva Meta de Ahorro</h3>
+                    <form id="form-nueva-meta">
+                        <div class="input-group">
+                            <label for="nombre-meta">Nombre de la Meta:</label>
+                            <input type="text" id="nombre-meta" required placeholder="Ej: Viaje a la playa">
+                        </div>
+                        <div class="input-group">
+                            <label for="monto-meta">Monto Objetivo:</label>
+                            <input type="number" id="monto-meta" required placeholder="Ingresa el monto total">
+                        </div>
+                        <div class="input-group">
+                            <label for="fecha-meta">Fecha Objetivo:</label>
+                            <input type="date" id="fecha-meta" required>
+                        </div>
+                        <button type="submit" class="btn-principal">Crear Meta</button>
+                    </form>
+                </div>
+
+                <!-- Lista de metas activas -->
+                <div class="lista-metas">
+                    <h3>Metas Activas</h3>
+                    <div id="metas-container">
+                        <!-- Las metas se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Template para cada meta -->
+                <template id="template-meta">
+                    <div class="meta-card">
+                        <div class="meta-header">
+                            <h4 class="meta-nombre"></h4>
+                            <div class="meta-acciones">
+                                <button class="btn-completar" title="Marcar como completada">✅</button>
+                                <button class="btn-eliminar" title="Eliminar meta">❌</button>
+                            </div>
+                        </div>
+                        <div class="meta-info">
+                            <p>Objetivo: <span class="meta-monto"></span></p>
+                            <p>Ahorrado: <span class="meta-ahorrado"></span></p>
+                            <p>Fecha límite: <span class="meta-fecha"></span></p>
+                        </div>
+                        <div class="meta-progreso">
+                            <div class="barra-progreso">
+                                <div class="progreso"></div>
+                            </div>
+                            <span class="porcentaje"></span>
+                        </div>
+                        <div class="meta-aporte">
+                            <input type="number" placeholder="Monto a aportar" class="input-aporte">
+                            <button class="btn-aportar">Aportar</button>
+                        </div>
+                    </div>
+                </template>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Control de Gastos. Todos los derechos reservados.</p>
+            <nav class="footer-nav">
+                <a href="privacy.html">Política de Privacidad</a> | 
+                <a href="terms.html">Términos de Uso</a> | 
+                <a href="contact.html">Contacto</a>
+            </nav>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script src="metas.js"></script>
+</body>
+</html> 

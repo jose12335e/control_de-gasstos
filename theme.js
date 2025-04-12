@@ -1,42 +1,74 @@
 // Elementos del DOM
 const btnCambioTema = document.getElementById('btn-cambio-tema');
 const iconoTema = document.querySelector('.icono-tema');
+const modoOscuroCheckbox = document.getElementById('modo-oscuro');
+const estadoModo = document.getElementById('estado-modo');
 
 // Cargar el tema guardado al iniciar
 document.addEventListener('DOMContentLoaded', () => {
-    const temaGuardado = localStorage.getItem('tema') || 'claro';
-    aplicarTema(temaGuardado);
-    actualizarIconoTema(temaGuardado);
+    // Cargar configuración desde localStorage
+    const configGuardada = localStorage.getItem('configuracion');
+    const configuracion = configGuardada ? JSON.parse(configGuardada) : {
+        modoOscuro: false
+    };
+    
+    // Aplicar modo oscuro si está activado
+    if (configuracion.modoOscuro) {
+        document.body.classList.add('modo-oscuro');
+        if (iconoTema) iconoTema.textContent = '☀️';
+        if (estadoModo) estadoModo.textContent = 'Activado';
+        if (modoOscuroCheckbox) modoOscuroCheckbox.checked = true;
+    } else {
+        document.body.classList.remove('modo-oscuro');
+        if (iconoTema) iconoTema.textContent = '🌙';
+        if (estadoModo) estadoModo.textContent = 'Desactivado';
+        if (modoOscuroCheckbox) modoOscuroCheckbox.checked = false;
+    }
 });
 
 // Función para cambiar el tema
 function cambiarTema() {
-    const temaActual = document.body.classList.contains('tema-oscuro') ? 'oscuro' : 'claro';
-    const nuevoTema = temaActual === 'oscuro' ? 'claro' : 'oscuro';
+    const modoOscuroActual = document.body.classList.contains('modo-oscuro');
+    const nuevoModoOscuro = !modoOscuroActual;
     
-    aplicarTema(nuevoTema);
-    actualizarIconoTema(nuevoTema);
+    aplicarModoOscuro(nuevoModoOscuro);
     
     // Guardar preferencia en localStorage
-    localStorage.setItem('tema', nuevoTema);
+    const configGuardada = localStorage.getItem('configuracion');
+    const configuracion = configGuardada ? JSON.parse(configGuardada) : {};
+    configuracion.modoOscuro = nuevoModoOscuro;
+    localStorage.setItem('configuracion', JSON.stringify(configuracion));
 }
 
-// Función para aplicar el tema seleccionado
-function aplicarTema(tema) {
-    document.body.classList.remove('tema-claro', 'tema-oscuro', 'tema-azul');
-    document.body.classList.add(`tema-${tema}`);
-}
-
-// Función para actualizar el icono del tema
-function actualizarIconoTema(tema) {
-    if (tema === 'oscuro') {
-        iconoTema.textContent = '☀️'; // Sol para tema oscuro
+// Función para aplicar el modo oscuro
+function aplicarModoOscuro(activado) {
+    if (activado) {
+        document.body.classList.add('modo-oscuro');
+        if (iconoTema) iconoTema.textContent = '☀️';
+        if (estadoModo) estadoModo.textContent = 'Activado';
+        if (modoOscuroCheckbox) modoOscuroCheckbox.checked = true;
     } else {
-        iconoTema.textContent = '🌙'; // Luna para tema claro
+        document.body.classList.remove('modo-oscuro');
+        if (iconoTema) iconoTema.textContent = '🌙';
+        if (estadoModo) estadoModo.textContent = 'Desactivado';
+        if (modoOscuroCheckbox) modoOscuroCheckbox.checked = false;
     }
 }
 
 // Event listener para el botón de cambio de tema
 if (btnCambioTema) {
     btnCambioTema.addEventListener('click', cambiarTema);
+}
+
+// Event listener para el checkbox de modo oscuro
+if (modoOscuroCheckbox) {
+    modoOscuroCheckbox.addEventListener('change', () => {
+        aplicarModoOscuro(modoOscuroCheckbox.checked);
+        
+        // Guardar preferencia en localStorage
+        const configGuardada = localStorage.getItem('configuracion');
+        const configuracion = configGuardada ? JSON.parse(configGuardada) : {};
+        configuracion.modoOscuro = modoOscuroCheckbox.checked;
+        localStorage.setItem('configuracion', JSON.stringify(configuracion));
+    });
 } 

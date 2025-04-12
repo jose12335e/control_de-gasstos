@@ -3,114 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-translate="configTitle">Configuración</title>
+    <title>Configuración - Control de Gastos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <h1 data-translate="appTitle">Control de Gastos</h1>
-            <div class="menu">
-                <a href="app.html" class="btn-volver" data-translate="backToHome">Volver al Inicio</a>
-                <button id="btnCerrarSesion" data-translate="logoutBtn">Cerrar Sesión</button>
+    <div class="container">
+        <header>
+            <h1>Control de Gastos</h1>
+            <div class="header-actions">
+                <button id="btn-cambio-tema" class="btn-tema" title="Cambiar tema">
+                    <span class="icono-tema">🌙</span>
+                </button>
+                <button id="btn-cerrar-sesion" class="btn-cerrar-sesion" title="Cerrar sesión">
+                    <span class="icono-cerrar">🚪</span>
+                </button>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section class="seccion-configuracion">
-            <h2 data-translate="configTitle">Configuración</h2>
-            
-            <div class="config-group">
-                <h3 data-translate="languageTitle">Idioma / Language</h3>
-                <div class="language-buttons">
-                    <button onclick="changeLanguage('es')" class="lang-btn">Español</button>
-                    <button onclick="changeLanguage('en')" class="lang-btn">English</button>
+        </header>
+        
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="app.html" class="sidebar-link">
+                    <span class="icono-inicio">🏠</span>
+                    <span class="texto-link">Inicio</span>
+                </a>
+                <a href="config.html" class="sidebar-link active">
+                    <span class="icono-config">⚙️</span>
+                    <span class="texto-link">Configuración</span>
+                </a>
+                <a href="metas.html" class="sidebar-link">
+                    <span class="icono-metas">🎯</span>
+                    <span class="texto-link">Metas de Ahorro</span>
+                </a>
+                <a href="historial.html" class="sidebar-link">
+                    <span class="icono-historial">📊</span>
+                    <span class="texto-link">Historial de Gastos</span>
+                </a>
+            </nav>
+        </div>
+        
+        <main>
+            <section class="seccion-config">
+                <h2>Configuración</h2>
+                
+                <!-- Configuración de límites de gasto -->
+                <div class="config-card">
+                    <h3>Límites de Gasto</h3>
+                    <form id="form-limites">
+                        <div class="input-group">
+                            <label for="limite-diario">Límite de Gasto Diario:</label>
+                            <input type="number" id="limite-diario" min="0" step="1" placeholder="Ingresa el límite diario">
+                        </div>
+                        <button type="submit" class="btn-principal">Guardar Límite</button>
+                    </form>
                 </div>
-            </div>
 
-            <div class="config-item">
-                <h3>Moneda</h3>
-                <select id="moneda-select">
-                    <option value="USD">Dólar estadounidense ($)</option>
-                    <option value="EUR">Euro (€)</option>
-                    <option value="MXN">Peso mexicano ($)</option>
-                    <option value="COP">Peso colombiano ($)</option>
-                    <option value="ARS">Peso argentino ($)</option>
-                    <option value="CLP">Peso chileno ($)</option>
-                    <option value="PEN">Sol peruano (S/)</option>
-                    <option value="BRL">Real brasileño (R$)</option>
-                    <option value="GBP">Libra esterlina (£)</option>
-                    <option value="JPY">Yen japonés (¥)</option>
-                    <option value="DOP">Peso dominicano (RD$)</option>
-                </select>
-            </div>
+                <!-- Configuración de mes financiero -->
+                <div class="config-card">
+                    <h3>Mes Financiero</h3>
+                    <form id="form-mes-financiero">
+                        <div class="input-group">
+                            <label for="dia-inicio-mes">Día de inicio del mes financiero:</label>
+                            <select id="dia-inicio-mes">
+                                <option value="1">1 (Día 1)</option>
+                                <option value="5">5 (Día 5)</option>
+                                <option value="10">10 (Día 10)</option>
+                                <option value="15">15 (Día 15)</option>
+                                <option value="20">20 (Día 20)</option>
+                                <option value="25">25 (Día 25)</option>
+                                <option value="28">28 (Día 28)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-principal">Guardar Configuración</button>
+                    </form>
+                </div>
 
-            <div class="config-item">
-                <h3>Formato de fecha</h3>
-                <select id="formato-fecha-select">
-                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-                </select>
-            </div>
+                <!-- Configuración de apariencia -->
+                <div class="config-card">
+                    <h3>Apariencia</h3>
+                    <div class="input-group">
+                        <label for="modo-oscuro">Modo Oscuro:</label>
+                        <div class="toggle-container">
+                            <label class="toggle">
+                                <input type="checkbox" id="modo-oscuro">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span id="estado-modo">Desactivado</span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="config-item">
-                <h3>Tema</h3>
-                <select id="tema-select">
-                    <option value="claro">Claro</option>
-                    <option value="oscuro">Oscuro</option>
-                    <option value="azul">Azul</option>
-                </select>
-            </div>
+                <!-- Configuración de perfil -->
+                <div class="config-card">
+                    <h3>Perfil de Usuario</h3>
+                    <form id="form-perfil">
+                        <div class="input-group">
+                            <label for="nombre-usuario">Nombre:</label>
+                            <input type="text" id="nombre-usuario" placeholder="Tu nombre">
+                        </div>
+                        <div class="input-group">
+                            <label for="correo-usuario">Correo Electrónico:</label>
+                            <input type="email" id="correo-usuario" placeholder="tu@correo.com">
+                        </div>
+                        <button type="submit" class="btn-principal">Actualizar Perfil</button>
+                    </form>
+                </div>
 
-            <div class="config-actions">
-                <button id="guardar-config" class="btn-principal">Guardar Cambios</button>
-            </div>
-        </section>
-    </main>
-
-    <div class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="app.html" class="sidebar-link">
-                <span class="icono-inicio">🏠</span>
-                <span class="texto-link">Inicio</span>
-            </a>
-            <a href="config.html" class="sidebar-link active">
-                <span class="icono-config">⚙️</span>
-                <span class="texto-link">Configuración</span>
-            </a>
-            <a href="historial.html" class="sidebar-link">
-                <span class="icono-historial">📊</span>
-                <span class="texto-link">Historial de Gastos</span>
-            </a>
-        </nav>
+                <!-- Reiniciar datos -->
+                <div class="config-card">
+                    <h3>Reiniciar Datos</h3>
+                    <p class="advertencia">Esta acción eliminará todos tus datos guardados y no se puede deshacer.</p>
+                    <button id="btn-reiniciar" class="btn-peligro">Reiniciar Todos los Datos</button>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Control de Gastos. Todos los derechos reservados.</p>
+            <nav class="footer-nav">
+                <a href="privacy.html">Política de Privacidad</a> | 
+                <a href="terms.html">Términos de Uso</a> | 
+                <a href="contact.html">Contacto</a>
+            </nav>
+        </footer>
     </div>
 
-    <script src="translations.js"></script>
+    <!-- Scripts -->
     <script src="firebase-config.js"></script>
     <script src="auth.js"></script>
     <script src="theme.js"></script>
-    <script>
-        // Cargar el idioma guardado al iniciar
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLanguage = localStorage.getItem('language') || 'es';
-            changeLanguage(savedLanguage);
-            
-            // Cargar el tema guardado
-            const temaGuardado = localStorage.getItem('tema') || 'claro';
-            const temaSelect = document.getElementById('tema-select');
-            if (temaSelect) {
-                temaSelect.value = temaGuardado;
-                
-                // Añadir evento para cambiar el tema al seleccionar una opción
-                temaSelect.addEventListener('change', () => {
-                    const nuevoTema = temaSelect.value;
-                    aplicarTema(nuevoTema);
-                    localStorage.setItem('tema', nuevoTema);
-                });
-            }
-        });
-    </script>
+    <script src="config.js"></script>
 </body>
 </html> 
